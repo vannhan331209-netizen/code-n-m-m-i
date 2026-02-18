@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Happy New Year</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    text-align:center;
+    background:black;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Lá thư */
+.envelope{
+    font-size:100px;
+    margin-top:200px;
+    cursor:pointer;
+}
+
+/* Nội dung */
+.content{
+    display:none;
+    padding-bottom:50px;
+}
+
+/* Tiêu đề */
+.title{
+    font-family:'Great Vibes', cursive;
+    font-size:70px;
+    margin-top:30px;
+    text-shadow:0 0 20px pink;
+}
+
+/* Lời chúc chung */
+.general-message{
+    font-family:'Dancing Script', cursive;
+    font-size:30px;
+    margin-top:20px;
+}
+
+/* Ảnh */
+.gallery{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:20px;
+}
+
+.gallery img{
+    width:200px;
+    height:200px;
+    object-fit:cover;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.1);
+}
+
+/* Modal ảnh zoom */
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.modal img{
+    max-width:60%;
+    max-height:60%;
+    border-radius:20px;
+}
+
+.personal-message{
+    font-family:'Dancing Script', cursive;
+    font-size:28px;
+    margin-top:20px;
+}
+
+/* Tim rơi */
+.heart{
+    position:fixed;
+    top:-10px;
+    font-size:20px;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{ transform:translateY(100vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="envelope" onclick="openLetter()">💌</div>
+
+<div class="content" id="content">
+
+    <h1 class="title">Happy New Year 🎆</h1>
+
+    <div class="general-message">
+       Cảm ơn vì đã đồng hành cùng với tớ trong suốt thời gian qua.
+Thanh xuân của tớ thật đẹp vì có các bạn.
+Chúc các cậu luôn vui vẻ, mạnh khỏe,
+và dù sau này có ra sao,
+tình bạn này vẫn luôn còn mãi💖
+    </div>
+
+    <div class="gallery">
+         <img src="anh1.jpg" onclick="showPerson(0)">
+        <img src="anh2.jpg" onclick="showPerson(1)">
+        <img src="anh5.jpg" onclick="showPerson(2)">
+        <img src="anh3.jpg" onclick="showPerson(3)">
+        <img src="anh4.jpg" onclick="showPerson(4)">
+       
+        
+    </div>
+
+</div>
+
+<!-- Khung zoom ảnh -->
+<div class="modal" id="modal" onclick="closeModal()">
+    <img id="modalImg">
+    <div class="personal-message" id="personalText"></div>
+</div>
+
+<audio id="music" loop>
+<source src="nhac.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const personalMessages = [
+"Chúc Ngân và Vinh học ít hiểu nhiều ngủ nhiều vẫn giỏi, mong 2 cậu tìm được hạnh phúc cho riêng mình.",
+"Chúc Vân và Trí đạt được ước mơ mà mình muốn, luôn giữ trái tim ấm áp để thấy hiểu người mình thương.",
+"Hi vọng tụi mình sẽ mãi là bạn tốt của nhau, dù sau này mỗi đứa một nơi nhưng tình bạn vẫn luôn như ngày đầu.",
+"Chúc Tú và Hồng Anh đủ mạnh mẽ để vượt qua khó khăn và đủ dịu dàng để yêu thương ai kia thật tốt nha. ",
+"Chúc cu Đen đậu vào học viện quân y, đánh cầu hay hơn và sớm có em ghệ mới. "
+];
+
+function openLetter(){
+    document.querySelector(".envelope").style.display="none";
+    document.getElementById("content").style.display="block";
+    document.getElementById("music").play();
+    setInterval(createHeart,300);
+}
+
+function showPerson(index){
+    document.getElementById("modal").style.display="flex";
+    document.getElementById("modalImg").src = document.querySelectorAll(".gallery img")[index].src;
+    document.getElementById("personalText").innerText = personalMessages[index];
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+/* Tim rơi */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="🧧";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=Math.random()*3+2+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},5000);
+}
+
+</script>
+
+</body>
+</html>
