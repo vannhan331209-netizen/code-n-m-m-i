@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Happy Birthday</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    text-align:center;
+    background:black;   /* NỀN ĐEN Ở ĐÂY */
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Lá thư */
+.envelope{
+    font-size:100px;
+    margin-top:200px;
+    cursor:pointer;
+}
+
+/* Nội dung */
+.content{
+    display:none;
+    padding-bottom:50px;
+}
+
+/* Tiêu đề */
+.title{
+    font-family:'Great Vibes', cursive;
+    font-size:70px;
+    margin-top:30px;
+    text-shadow:0 0 20px pink;
+}
+
+/* Lời chúc */
+.message{
+    font-family:'Dancing Script', cursive;
+    font-size:32px;
+    margin-top:20px;
+    min-height:80px;
+}
+
+/* Ảnh */
+.gallery{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:20px;
+}
+
+.gallery img{
+    width:200px;
+    height:200px;
+    object-fit:cover;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.1);
+}
+
+/* Tim rơi */
+.heart{
+    position:fixed;
+    top:-10px;
+    font-size:20px;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{ transform:translateY(100vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="envelope" onclick="openLetter()">💌</div>
+
+<div class="content" id="content">
+
+    <h1 class="title"> happy new year 🎈🎆</h1>
+
+    <div class="gallery">
+        <img src="anh1.jpg">
+        <img src="anh2.jpg">
+        <img src="anh5.jpg">
+        <img src="anh3.jpg">
+        <img src="anh4.jpg">
+        
+    </div>
+
+    <div class="message" id="typingText"></div>
+
+</div>
+
+<audio id="music" loop>
+<source src="nhac.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openLetter(){
+    document.querySelector(".envelope").style.display="none";
+    document.getElementById("content").style.display="block";
+    document.getElementById("music").play();
+    typeWriter();
+    setInterval(createHeart,300);
+}
+
+/* Chữ chạy */
+function typeWriter(){
+    const text = `Chúc bạn tuổi mới thật nhiều niềm vui, luôn cười thật tươi,
+gặp thật nhiều điều may mắn. 
+tiền vào như nước sông Đà tiền ra nhỏ giọt như cà phê fin, 
+ 
+Mong mọi ước mơ của bạn đều thành sự thật. 
+Có mình bên cạnh hoài nha`;
+
+    let i = 0;
+    function typing(){
+        if(i < text.length){
+            document.getElementById("typingText").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, 50);
+        }
+    }
+    typing();
+}
+
+/* Tim rơi */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="🧧";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=Math.random()*3+2+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},5000);
+}
+</script>
+
+</body>
+</html>
